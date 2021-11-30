@@ -1,3 +1,3 @@
 # js_simple_projects
-##1. color flipper - master branch
-##2. counter - b2 branch
+## color flipper - https://vaibhav-thalanki.github.io/js_proj/
+## counter - b2 branch
