@@ -1,2 +1,3 @@
-# js_color_flipper
-## basic javascript page to flip colors
+# js_simple_projects
+##1. color flipper - master branch
+##2. counter - b2 branch
