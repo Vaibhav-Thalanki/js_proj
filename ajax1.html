@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajax 1 - Text</title>
+  </head>
+  <body>
+    <button id="btn">Click here</button>
+    <div id="text"></div>
+
+    <script>
+      document.querySelector("#btn").addEventListener("click", loadtext);
+      function loadtext() {
+        var xhr = new XMLHttpRequest();
+        console.log(xhr);
+        //console.log(xhr.readyState); //0
+        xhr.open("GET", "sample.txt", true);
+        //console.log(xhr.readyState); //1
+        xhr.onload = function () {
+          //console.log(xhr.readyState); // it is 4 after putting xhr.send()
+          if (this.status === 200) {
+            document.querySelector("div#text").textContent = this.responseText;
+            console.log(this.responseText);
+          } else if (this.status == 404) {
+            console.log("not found");
+          }
+        };
+        xhr.onerror = function () {
+          console.log("error"); //used with onload()
+        };
+
+        /*
+        xhr.onreadystatechange = function () {
+          console.log(xhr.readyState); // it is 2,3,4 after putting xhr.send()
+          if (this.status === 200 && this.readyState === 4)
+            console.log(this.response);
+        };
+        */
+        xhr.onprogress = function () {
+          //it runs while readystate == 3 and used for loaders gif
+          console.log("its processing....");
+        };
+        //console.log(xhr.readyState); //1
+        xhr.send(); //calls onload() or onreadystatechange() and onprogress()
+      }
+    </script>
+  </body>
+</html>

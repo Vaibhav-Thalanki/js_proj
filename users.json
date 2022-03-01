@@ -1,0 +1,29 @@
+[
+    {
+        "name":"vaibhav thalanki",
+    "age":19,
+    "country":"india",
+    "hobbies" : ["football","drawing","web dev"]
+    },
+    {
+        "name":"Ryan hugh",
+    "age":34,
+    "country":"United states",
+    "hobbies" : ["Machine Learning","design"]
+
+    },
+    {
+        "name":"John sparks",
+    "age":25,
+    "country":"Ukraine",
+    "hobbies" : ["golf","teaching","coding"]
+
+    },
+    {
+        "name":"lucy ",
+    "age":15,
+    "country":"England",
+    "hobbies" : ["football","cycling","web dev"]
+
+    }
+]

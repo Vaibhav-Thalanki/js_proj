@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajax 2 - JSON(local)</title>
+  </head>
+  <body>
+    <br /><br />
+    <h1>USER</h1>
+    <button id="button1">Get User</button>
+    <div id="user"></div>
+    <h1>USERS</h1>
+    <button id="button2">Get Users</button>
+    <div id="users"></div>
+    <script>
+      document.getElementById("button1").addEventListener("click", sendrequser);
+      document
+        .querySelector("#button2")
+        .addEventListener("click", function (event) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", "./users.json", true);
+          xhr.onreadystatechange = function () {
+            if (this.status == 200 && this.readyState == 4) {
+              var arobj = JSON.parse(this.responseText);
+              var mesg = "<ul>";
+              for (var i in arobj) {
+                mesg +=
+                  "<li> NAME: " +
+                  arobj[i].name +
+                  "</li>" +
+                  "<li> AGE: " +
+                  arobj[i]["age"] +
+                  "</li>" +
+                  "<li> COUNTRY: " +
+                  arobj[i]["country"] +
+                  "</li>" +
+                  "<li>HOBBIES: ";
+                for (var j in arobj[i]["hobbies"]) {
+                  mesg += arobj[i]["hobbies"][j] + " ";
+                }
+                mesg += "</li> <br>";
+              }
+              mesg += "</ul>";
+              document.querySelector("div#users").innerHTML = mesg;
+            } else if (this.status == 404) console.log("not found");
+          };
+          xhr.onerror = function () {
+            console.log("error");
+          };
+          xhr.onprogress = function () {
+            console.log("processing...");
+          };
+          xhr.send();
+        });
+      function sendrequser() {
+        var xhr = new XMLHttpRequest();
+        console.log(xhr);
+        xhr.open("GET", "user.json", true);
+        console.log(xhr);
+        xhr.onload = function () {
+          if (this.status == 200) {
+            console.log(JSON.parse(this.responseText));
+            var obj = JSON.parse(this.responseText);
+            var mesg =
+              "<ul>" +
+              "<li> NAME: " +
+              obj.name +
+              "</li> <li> AGE: " +
+              obj.age +
+              "</li><li> COUNTRY: " +
+              obj["country"] +
+              "</li><li> HOBBIES: ";
+            for (var i in obj.hobbies) {
+              mesg += obj.hobbies[i] + " ";
+            }
+            mesg += "</li></ul>";
+            document.querySelector("div#user").innerHTML = mesg;
+          } else if (this.status == 404) console.log("not found");
+        };
+        xhr.onerror = function () {
+          console.log("error");
+        };
+        xhr.onprogress = function () {
+          console.log("processing...");
+        };
+        xhr.send(null);
+      }
+      document
+        .querySelector("#button1")
+        .addEventListener("blur", function (event) {
+          document.querySelector("#user").innerHTML = "";
+        });
+      document
+        .querySelector("#button2")
+        .addEventListener("blur", function (event) {
+          document.querySelector("#users").innerHTML = "";
+        });
+    </script>
+  </body>
+</html>

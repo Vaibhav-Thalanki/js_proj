@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajax 3 - Github API</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      img {
+        padding: 0;
+        margin: 0;
+      }
+      .user {
+        margin-bottom: 30px;
+        background-color: antiquewhite;
+        padding: 10px;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+      }
+      .user ul {
+        list-style: none;
+      }
+      .user img {
+        position: absolute;
+        right: 20%;
+        height: 100%;
+        top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="btn">Get Github users</button>
+    <br /><br />
+    <h1>Github Users</h1>
+    <div id="users"></div>
+    <script>
+      document
+        .querySelector("#btn")
+        .addEventListener("click", function (event) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", "https://api.github.com/users", true);
+          xhr.onerror = function () {
+            console.log("error ocurred");
+          };
+          xhr.onprogress = function () {
+            console.log("processing...");
+          };
+          xhr.onload = function () {
+            if (this.status == 200) {
+              console.log(JSON.parse(this.responseText));
+              var arobj = JSON.parse(this.responseText);
+              var mesg = "";
+              for (var i in arobj) {
+                mesg +=
+                  "<div class='user' ><img src=" +
+                  arobj[i]["avatar_url"] +
+                  "height='' width=''><br>" +
+                  "<ul><li> LOGIN: " +
+                  arobj[i].login +
+                  "</li>" +
+                  "<li>ID: " +
+                  arobj[i]["id"] +
+                  "</li>" +
+                  "<li>HTML URL: " +
+                  "<a href=" +
+                  arobj[i]["html_url"] +
+                  ">" +
+                  arobj[i].html_url +
+                  "</a></li></ul></div>";
+              }
+              document.querySelector("div#users").innerHTML = mesg;
+            }
+          };
+          xhr.send();
+        });
+
+      //   document.querySelector("#btn").addEventListener("blur", function (event) {
+      //     document.getElementById("users").innerHTML = "";
+      //   });
+    </script>
+  </body>
+</html>
